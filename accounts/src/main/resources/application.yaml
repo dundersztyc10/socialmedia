@@ -1,0 +1,12 @@
+spring:
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: test_db
+      username: username
+      password: password
+
+rsa:
+  public: ${RSA_PUBLIC}
+  private: ${RSA_PRIVATE}

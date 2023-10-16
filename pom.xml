@@ -10,11 +10,9 @@
     <version>1.0-SNAPSHOT</version>
 
     <modules>
+        <module>monolith</module>
         <module>accounts</module>
-        <module>application</module>
-        <module>account-creator</module>
-        <module>infrastructure</module>
-        <module>account-creator</module>
+        <module>security</module>
     </modules>
 
     <properties>

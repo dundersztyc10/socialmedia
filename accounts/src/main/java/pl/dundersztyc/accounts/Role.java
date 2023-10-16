@@ -8,7 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Role implements GrantedAuthority {
+class Role implements GrantedAuthority {
 
     public static final String USER_LOGGED = "USER_LOGGED";
     public static final String USER_PREMIUM = "USER_PREMIUM";

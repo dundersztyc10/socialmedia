@@ -1,3 +1,0 @@
-rsa:
-  public: ${RSA_PUBLIC}
-  private: ${RSA_PRIVATE}
