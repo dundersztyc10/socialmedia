@@ -12,6 +12,7 @@
     <modules>
         <module>monolith</module>
         <module>accounts</module>
+        <module>account-creator</module>
         <module>security</module>
     </modules>
 

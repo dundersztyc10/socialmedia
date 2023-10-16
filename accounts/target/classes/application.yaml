@@ -6,7 +6,3 @@ spring:
       database: test_db
       username: username
       password: password
-
-rsa:
-  public: ${RSA_PUBLIC}
-  private: ${RSA_PRIVATE}

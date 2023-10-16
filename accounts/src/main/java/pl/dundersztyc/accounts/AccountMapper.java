@@ -2,7 +2,8 @@ package pl.dundersztyc.accounts;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import pl.dundersztyc.accounts.dto.*;
+import pl.dundersztyc.accounts.dto.AccountDto;
+import pl.dundersztyc.accounts.dto.AccountRequest;
 
 import java.util.Set;
 

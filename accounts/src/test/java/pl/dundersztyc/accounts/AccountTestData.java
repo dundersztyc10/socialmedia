@@ -1,6 +1,5 @@
 package pl.dundersztyc.accounts;
 
-import org.springframework.security.core.parameters.P;
 import pl.dundersztyc.accounts.dto.AccountRequest;
 
 import java.util.Set;
