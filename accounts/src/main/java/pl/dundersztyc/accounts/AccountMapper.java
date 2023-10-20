@@ -2,6 +2,10 @@ package pl.dundersztyc.accounts;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import pl.dundersztyc.accounts.Account.FirstName;
+import pl.dundersztyc.accounts.Account.LastName;
+import pl.dundersztyc.accounts.Account.Password;
+import pl.dundersztyc.accounts.Account.Username;
 import pl.dundersztyc.accounts.dto.AccountDto;
 import pl.dundersztyc.accounts.dto.AccountRequest;
 

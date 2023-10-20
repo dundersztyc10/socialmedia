@@ -3,6 +3,7 @@ package pl.dundersztyc.accounts;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import pl.dundersztyc.accounts.Account.Username;
 import pl.dundersztyc.accounts.dto.AccountNotFoundException;
 
 import java.util.UUID;

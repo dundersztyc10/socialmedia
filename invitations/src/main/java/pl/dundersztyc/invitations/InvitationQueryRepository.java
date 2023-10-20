@@ -13,14 +13,14 @@ public class InvitationQueryRepository {
     private final InvitationRepository invitationRepository;
 
     public List<InvitationDto> findSentInvitationsWithStatuses(String accountId, List<InvitationStatus> requestedStatuses) {
-        return invitationRepository.findByIdFromAndStatusIn(accountId, requestedStatuses).stream()
-                .map(invitation -> new InvitationDto(invitation.getId(), invitation.getIdFrom(), invitation.getIdTo(), invitation.getStatus()))
+        return invitationRepository.findBySenderIdAndStatusIn(accountId, requestedStatuses).stream()
+                .map(invitation -> new InvitationDto(invitation.getId(), invitation.getSenderId(), invitation.getReceiverId(), invitation.getStatus()))
                 .collect(Collectors.toList());
     }
 
     public List<InvitationDto> findReceivedInvitationsWithStatuses(String accountId, List<InvitationStatus> requestedStatuses) {
-        return invitationRepository.findByIdToAndStatusIn(accountId, requestedStatuses).stream()
-                .map(invitation -> new InvitationDto(invitation.getId(), invitation.getIdFrom(), invitation.getIdTo(), invitation.getStatus()))
+        return invitationRepository.findByReceiverIdAndStatusIn(accountId, requestedStatuses).stream()
+                .map(invitation -> new InvitationDto(invitation.getId(), invitation.getSenderId(), invitation.getReceiverId(), invitation.getStatus()))
                 .collect(Collectors.toList());
     }
 

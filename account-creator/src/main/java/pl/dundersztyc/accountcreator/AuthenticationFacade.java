@@ -18,7 +18,6 @@ import static java.lang.String.format;
 import static java.util.stream.Collectors.joining;
 
 public class AuthenticationFacade {
-
     private final AuthenticationManager authenticationManager;
     private final JwtEncoder jwtEncoder;
     private final PasswordEncoder passwordEncoder;

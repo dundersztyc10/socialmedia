@@ -66,4 +66,17 @@ class Account implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    record FirstName(String value) {
+    }
+
+    record LastName(String value) {
+    }
+
+    record Password(String value) {
+    }
+
+    record Username(String value) {
+    }
+
 }

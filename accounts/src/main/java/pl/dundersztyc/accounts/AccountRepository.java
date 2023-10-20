@@ -1,6 +1,8 @@
 package pl.dundersztyc.accounts;
 
 
+import pl.dundersztyc.accounts.Account.Username;
+
 import java.util.Optional;
 
 interface AccountRepository{

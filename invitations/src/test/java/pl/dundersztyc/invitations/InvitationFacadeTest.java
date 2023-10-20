@@ -40,8 +40,8 @@ class InvitationFacadeTest {
         var invitationDto = addInvitation("from", "to");
 
         assertThat(invitationDto.id()).isNotNull();
-        assertThat(invitationDto.idFrom()).isEqualTo("from");
-        assertThat(invitationDto.idTo()).isEqualTo("to");
+        assertThat(invitationDto.senderId()).isEqualTo("from");
+        assertThat(invitationDto.receiverId()).isEqualTo("to");
     }
 
     @Test
@@ -88,10 +88,10 @@ class InvitationFacadeTest {
     @Test
     void shouldThrowWhenAcceptNotPendingInvitation() {
         var invitationDto = addInvitation("from", "to");
-        invitationFacade.acceptInvitation(invitationDto.id(), invitationDto.idTo());
+        invitationFacade.acceptInvitation(invitationDto.id(), invitationDto.receiverId());
 
         assertThrows(IllegalStateException.class,
-                () -> invitationFacade.acceptInvitation(invitationDto.id(), invitationDto.idTo()));
+                () -> invitationFacade.acceptInvitation(invitationDto.id(), invitationDto.receiverId()));
     }
 
     @Test
@@ -114,10 +114,10 @@ class InvitationFacadeTest {
     @Test
     void shouldThrowWhenDeclineNotPendingInvitation() {
         var invitationDto = addInvitation("from", "to");
-        invitationFacade.declineInvitation(invitationDto.id(), invitationDto.idTo());
+        invitationFacade.declineInvitation(invitationDto.id(), invitationDto.receiverId());
 
         assertThrows(IllegalStateException.class,
-                () -> invitationFacade.declineInvitation(invitationDto.id(), invitationDto.idTo()));
+                () -> invitationFacade.declineInvitation(invitationDto.id(), invitationDto.receiverId()));
     }
 
     private InvitationDto addInvitation(String idFrom, String idTo) {

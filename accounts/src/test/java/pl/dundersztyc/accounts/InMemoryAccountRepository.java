@@ -1,6 +1,9 @@
 package pl.dundersztyc.accounts;
 
 
+import pl.dundersztyc.accounts.Account.Password;
+import pl.dundersztyc.accounts.Account.Username;
+
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;

@@ -17,14 +17,14 @@ class Invitation {
     @MongoId
     private String id;
 
-    private String idFrom;
-    private String idTo;
+    private String senderId;
+    private String receiverId;
     private LocalDateTime date;
 
     @Setter
     private InvitationStatus status;
 
-    static Invitation withoutId(String idFrom, String idTo, LocalDateTime date, InvitationStatus status) {
-        return new Invitation(null, idFrom, idTo, date, status);
+    static Invitation withoutId(String senderId, String receiverId, LocalDateTime date, InvitationStatus status) {
+        return new Invitation(null, senderId, receiverId, date, status);
     }
 }

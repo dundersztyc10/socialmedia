@@ -18,8 +18,8 @@ class InMemoryInvitationRepository implements InvitationRepository {
         invitations.put(id, invitation);
         return new Invitation(
                 id,
-                invitation.getIdFrom(),
-                invitation.getIdTo(),
+                invitation.getSenderId(),
+                invitation.getReceiverId(),
                 invitation.getDate(),
                 invitation.getStatus()
         );
@@ -33,27 +33,27 @@ class InMemoryInvitationRepository implements InvitationRepository {
     }
 
     @Override
-    public List<Invitation> findByIdFromAndStatusIn(String idFrom, List<InvitationStatus> statusList) {
+    public List<Invitation> findBySenderIdAndStatusIn(String senderId, List<InvitationStatus> statusList) {
         return invitations.values().stream()
-                .filter(invitation -> invitation.getIdFrom().equals(idFrom))
+                .filter(invitation -> invitation.getSenderId().equals(senderId))
                 .filter(invitation -> statusList.contains(invitation.getStatus()))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<Invitation> findByIdToAndStatusIn(String idTo, List<InvitationStatus> statusList) {
+    public List<Invitation> findByReceiverIdAndStatusIn(String receiverId, List<InvitationStatus> statusList) {
         return invitations.values().stream()
-                .filter(invitation -> invitation.getIdTo().equals(idTo))
+                .filter(invitation -> invitation.getReceiverId().equals(receiverId))
                 .filter(invitation -> statusList.contains(invitation.getStatus()))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public boolean existsByIdFromAndIdTo(String idFrom, String idTo) {
+    public boolean existsBySenderIdAndReceiverId(String senderId, String receiverId) {
         return invitations.values().stream()
                 .anyMatch(invitation ->
-                        invitation.getIdFrom().equals(idFrom) &&
-                        invitation.getIdTo().equals(idTo)
+                        invitation.getSenderId().equals(senderId) &&
+                        invitation.getReceiverId().equals(receiverId)
                 );
     }
 }

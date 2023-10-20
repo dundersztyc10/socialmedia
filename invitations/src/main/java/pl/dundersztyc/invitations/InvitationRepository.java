@@ -8,7 +8,7 @@ import java.util.Optional;
 interface InvitationRepository {
     Invitation save(Invitation invitation);
     Optional<Invitation> findById(String id);
-    List<Invitation> findByIdFromAndStatusIn(String idFrom, List<InvitationStatus> statusList);
-    List<Invitation> findByIdToAndStatusIn(String idTo, List<InvitationStatus> statusList);
-    boolean existsByIdFromAndIdTo(String idFrom, String idTo);
+    List<Invitation> findBySenderIdAndStatusIn(String senderId, List<InvitationStatus> statusList);
+    List<Invitation> findByReceiverIdAndStatusIn(String receiverId, List<InvitationStatus> statusList);
+    boolean existsBySenderIdAndReceiverId(String senderId, String receiverId);
 }

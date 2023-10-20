@@ -1,6 +1,7 @@
 package pl.dundersztyc.accounts;
 
 import lombok.RequiredArgsConstructor;
+import pl.dundersztyc.accounts.Account.Username;
 import pl.dundersztyc.accounts.dto.AccountDto;
 import pl.dundersztyc.accounts.dto.AccountNotFoundException;
 

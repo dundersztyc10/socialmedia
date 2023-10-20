@@ -15,26 +15,26 @@ public class InvitationFacade {
     private final Clock clock;
 
     public InvitationDto addInvitation(InvitationRequest request) {
-        if (request.idFrom().equals(request.idTo())) {
+        if (request.senderId().equals(request.receiverId())) {
             throw new InvalidInvitationException("the receiver cannot be the same as the sender");
         }
-        if (!doAccountsExist(request.idFrom(), request.idTo())) {
+        if (!doAccountsExist(request.senderId(), request.receiverId())) {
             throw new InvalidInvitationException("recipient or sender does not exist");
         }
-        if (doesInvitationExistBetweenAccounts(request.idFrom(), request.idTo())) {
+        if (doesInvitationExistBetweenAccounts(request.senderId(), request.receiverId())) {
             throw new InvalidInvitationException("invitation exist");
         }
         Invitation invitation = Invitation.withoutId(
-                request.idFrom(), request.idTo(), LocalDateTime.now(clock), InvitationStatus.PENDING);
+                request.senderId(), request.receiverId(), LocalDateTime.now(clock), InvitationStatus.PENDING);
         var saved = invitationRepository.save(invitation);
-        return new InvitationDto(saved.getId(), saved.getIdFrom(), saved.getIdTo(), saved.getStatus());
+        return new InvitationDto(saved.getId(), saved.getSenderId(), saved.getReceiverId(), saved.getStatus());
     }
 
     public InvitationDto acceptInvitation(String invitationId, String accountId) {
         // TODO: call friend facade / publish event +
         Invitation invitation = invitationRepository.findById(invitationId)
                 .orElseThrow(() -> new InvitationDoesNotExistException("invalid invitationId"));
-        if (!invitation.getIdTo().equals(accountId)) {
+        if (!invitation.getReceiverId().equals(accountId)) {
             throw new IllegalStateException("cannot accept not your invitation");
         }
         if (invitation.getStatus() != InvitationStatus.PENDING) {
@@ -42,14 +42,14 @@ public class InvitationFacade {
         }
         invitation.setStatus(InvitationStatus.ACCEPTED);
         var saved = invitationRepository.save(invitation);
-        return new InvitationDto(saved.getId(), saved.getIdFrom(), saved.getIdTo(), saved.getStatus());
+        return new InvitationDto(saved.getId(), saved.getSenderId(), saved.getReceiverId(), saved.getStatus());
     }
 
     public InvitationDto declineInvitation(String invitationId, String accountId) {
         // TODO: call friend facade / publish event +
         Invitation invitation = invitationRepository.findById(invitationId)
                 .orElseThrow(() -> new InvitationDoesNotExistException("invalid invitationId"));
-        if (!invitation.getIdTo().equals(accountId)) {
+        if (!invitation.getReceiverId().equals(accountId)) {
             throw new IllegalStateException("cannot accept not your invitation");
         }
         if (invitation.getStatus() != InvitationStatus.PENDING) {
@@ -57,7 +57,7 @@ public class InvitationFacade {
         }
         invitation.setStatus(InvitationStatus.DECLINED);
         var saved = invitationRepository.save(invitation);
-        return new InvitationDto(saved.getId(), saved.getIdFrom(), saved.getIdTo(), saved.getStatus());
+        return new InvitationDto(saved.getId(), saved.getSenderId(), saved.getReceiverId(), saved.getStatus());
     }
 
     private boolean doAccountsExist(String idFrom, String idTo) {
@@ -66,8 +66,8 @@ public class InvitationFacade {
     }
 
     private boolean doesInvitationExistBetweenAccounts(String idFrom, String idTo) {
-        return invitationRepository.existsByIdFromAndIdTo(idFrom, idTo) ||
-                invitationRepository.existsByIdFromAndIdTo(idTo, idFrom);
+        return invitationRepository.existsBySenderIdAndReceiverId(idFrom, idTo) ||
+                invitationRepository.existsBySenderIdAndReceiverId(idTo, idFrom);
 
     }
 

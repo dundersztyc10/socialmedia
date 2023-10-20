@@ -23,7 +23,7 @@ class InvitationController {
     @PostMapping
     public ResponseEntity<InvitationDto> createInvitation(@RequestBody InvitationRequest request,
                                           CurrentAccountGetter currentAccountGetter) {
-        if (!request.idFrom().equals(currentAccountGetter.getAccountId())) {
+        if (!request.senderId().equals(currentAccountGetter.getAccountId())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<InvitationDto>(invitationFacade.addInvitation(request), HttpStatus.CREATED);
