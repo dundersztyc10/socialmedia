@@ -1,8 +1,11 @@
 package pl.dundersztyc.accounts;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.MongoId;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -11,11 +14,13 @@ import java.util.Set;
 import java.util.UUID;
 
 @Document
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Getter
 class Account implements UserDetails {
 
-    private final UUID id;
+    @MongoId
+    private String id;
+
     private final Username username;
     private final FirstName firstName;
     private final LastName lastName;

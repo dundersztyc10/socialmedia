@@ -9,12 +9,6 @@ public class AccountFacade {
     private final AccountRepository accountRepository;
     private final AccountMapper accountMapper;
 
-    public AccountDto findAccountByUsername(String username) {
-        Account account = accountRepository.findByUsername(new Username(username))
-                .orElseThrow(UsernameNotFoundException::new);
-        return accountMapper.toDto(account);
-    }
-
     public AccountDto saveAccount(AccountRequest accountRequest) {
         if (usernameExist(new Username(accountRequest.username()))) {
             throw new UsernameExistException();

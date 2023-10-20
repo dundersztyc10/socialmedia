@@ -34,7 +34,7 @@ public class AuthenticationFacade {
                 new UsernamePasswordAuthenticationToken(authRequest.username(), authRequest.password()));
     }
 
-    public String provideJwt(Authentication authentication) {
+    public String provideJwt(Authentication authentication, String accountId) {
         if (authentication == null || !authentication.isAuthenticated()) {
             throw new BadCredentialsException("invalid credentials");
         }
@@ -55,6 +55,8 @@ public class AuthenticationFacade {
                         .expiresAt(now.plusSeconds(expiry))
                         .subject(format("%s", user.getUsername()))
                         .claim("roles", scope)
+                        .claim("accountid", accountId)
+                        .claim("username", user.getUsername())
                         .build();
 
         return jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();

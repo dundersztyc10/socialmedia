@@ -6,14 +6,29 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
-class InMemoryAccountRepository implements AccountRepository {
+public class InMemoryAccountRepository implements AccountRepository {
 
-    ConcurrentHashMap<UUID, Account> accounts = new ConcurrentHashMap<>();
+    ConcurrentHashMap<String, Account> accounts = new ConcurrentHashMap<>();
 
     @Override
     public Account save(Account account) {
-        accounts.put(UUID.randomUUID(), account);
-        return account;
+        var id = UUID.randomUUID().toString();
+        accounts.put(id, account);
+        return new Account(
+                id,
+                new Username(account.getUsername()),
+                account.getFirstName(),
+                account.getLastName(),
+                new Password(account.getPassword()),
+                account.getRoles()
+        );
+    }
+
+    @Override
+    public Optional<Account> findById(String id) {
+        return Optional.of(
+                accounts.get(id)
+        );
     }
 
     @Override

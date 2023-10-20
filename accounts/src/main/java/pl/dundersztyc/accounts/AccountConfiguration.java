@@ -11,12 +11,11 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
-public
 class AccountConfiguration {
 
     @Bean
-    public AuthenticationManager authenticationManager(AccountRepository accountRepository,
-                                                       PasswordEncoder passwordEncoder) {
+    AuthenticationManager authenticationManager(AccountRepository accountRepository,
+                                                PasswordEncoder passwordEncoder) {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setUserDetailsService(
                 username -> accountRepository.findByUsername(new Username(username))
@@ -30,6 +29,15 @@ class AccountConfiguration {
     AccountFacade accountFacade(AccountRepository accountRepository, PasswordEncoder passwordEncoder) {
         AccountMapper accountMapper = new AccountMapper(passwordEncoder);
         return new AccountFacade(
+                accountRepository,
+                accountMapper
+        );
+    }
+
+    @Bean
+    AccountQueryRepository accountQueryRepository(AccountRepository accountRepository, PasswordEncoder passwordEncoder) {
+        AccountMapper accountMapper = new AccountMapper(passwordEncoder);
+        return new AccountQueryRepository(
                 accountRepository,
                 accountMapper
         );

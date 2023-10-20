@@ -6,5 +6,5 @@ import pl.dundersztyc.accounts.AccountRepository;
 
 import java.util.UUID;
 
-interface MongoDbAccountRepository extends MongoRepository<Account, UUID>, AccountRepository {
+interface MongoDbAccountRepository extends MongoRepository<Account, String>, AccountRepository {
 }
