@@ -2,9 +2,12 @@ package pl.dundersztyc.invitations;
 
 import lombok.RequiredArgsConstructor;
 import pl.dundersztyc.accounts.AccountQueryRepository;
+import pl.dundersztyc.common.events.EventPublisher;
 import pl.dundersztyc.invitations.dto.*;
+import pl.dundersztyc.invitations.infrastructure.events.InvitationAcceptedEvent;
 
 import java.time.Clock;
+import java.time.Instant;
 import java.time.LocalDateTime;
 
 @RequiredArgsConstructor
@@ -12,6 +15,7 @@ public class InvitationFacade {
 
     private final InvitationRepository invitationRepository;
     private final AccountQueryRepository accountQueryRepository;
+    private final EventPublisher eventPublisher;
     private final Clock clock;
 
     public InvitationDto addInvitation(InvitationRequest request) {
@@ -42,6 +46,7 @@ public class InvitationFacade {
         }
         invitation.setStatus(InvitationStatus.ACCEPTED);
         var saved = invitationRepository.save(invitation);
+        eventPublisher.raise(new InvitationAcceptedEvent(clock.instant(), saved.getSenderId(), saved.getReceiverId()));
         return new InvitationDto(saved.getId(), saved.getSenderId(), saved.getReceiverId(), saved.getStatus());
     }
 

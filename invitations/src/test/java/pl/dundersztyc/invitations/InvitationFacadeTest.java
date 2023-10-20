@@ -4,10 +4,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pl.dundersztyc.accounts.AccountQueryRepository;
 import pl.dundersztyc.accounts.dto.AccountDto;
+import pl.dundersztyc.common.events.EventPublisher;
 import pl.dundersztyc.invitations.dto.InvalidInvitationException;
 import pl.dundersztyc.invitations.dto.InvitationDto;
 import pl.dundersztyc.invitations.dto.InvitationRequest;
 import pl.dundersztyc.invitations.dto.InvitationStatus;
+import pl.dundersztyc.invitations.infrastructure.events.InvitationAcceptedEvent;
 
 import java.time.Clock;
 import java.time.Instant;
@@ -15,23 +17,28 @@ import java.time.ZoneOffset;
 
 import static org.junit.Assert.*;
 import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 class InvitationFacadeTest {
 
     private final Clock clock = Clock.fixed(Instant.parse("2018-08-22T10:00:00Z"), ZoneOffset.UTC);
 
     private AccountQueryRepository accountQueryRepository;
+    private EventPublisher eventPublisher;
     private InvitationFacade invitationFacade;
 
     // TODO: https://youtu.be/2vEoL3Irgiw?t=958
     @BeforeEach
     public void setUp() {
         accountQueryRepository = mock(AccountQueryRepository.class);
+        eventPublisher = mock(EventPublisher.class);
         invitationFacade = new InvitationConfiguration().invitationFacade(
-                new InMemoryInvitationRepository(), accountQueryRepository, clock);
+                new InMemoryInvitationRepository(), accountQueryRepository, eventPublisher, clock);
         givenAccountsExist();
     }
 
@@ -74,6 +81,20 @@ class InvitationFacadeTest {
 
         var accepted = invitationFacade.acceptInvitation(invitationDto.id(), "to");
 
+        // TODO:
+        verify(eventPublisher).raise(any(InvitationAcceptedEvent.class));
+        //verify(eventPublisher).raise(argThat(
+        //        event -> {
+        //            assertThat(event).isInstanceOf(InvitationAcceptedEvent.class);
+        //            InvitationAcceptedEvent invitationAccepted = (InvitationAcceptedEvent) event;
+        //            assertAll(
+        //                    () -> assertThat(invitationAccepted.when()).isEqualTo(clock.instant()),
+        //                    () -> assertThat(invitationAccepted.senderId()).isEqualTo("from"),
+        //                    () -> assertThat(invitationAccepted.receiverId()).isEqualTo("to")
+        //            );
+        //            return true;
+        //        }
+        //));
         assertThat(accepted.status()).isEqualTo(InvitationStatus.ACCEPTED);
     }
 
