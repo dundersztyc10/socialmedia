@@ -13,6 +13,11 @@
     <dependencies>
         <dependency>
             <groupId>pl.dundersztyc</groupId>
+            <artifactId>invitations-events</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>pl.dundersztyc</groupId>
             <artifactId>accounts</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>

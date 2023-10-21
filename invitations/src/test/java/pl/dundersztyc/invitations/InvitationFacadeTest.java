@@ -9,7 +9,7 @@ import pl.dundersztyc.invitations.dto.InvalidInvitationException;
 import pl.dundersztyc.invitations.dto.InvitationDto;
 import pl.dundersztyc.invitations.dto.InvitationRequest;
 import pl.dundersztyc.invitations.dto.InvitationStatus;
-import pl.dundersztyc.invitations.infrastructure.events.InvitationAcceptedEvent;
+import pl.dundersztyc.invitations.events.InvitationAcceptedEvent;
 
 import java.time.Clock;
 import java.time.Instant;
@@ -19,7 +19,6 @@ import static org.junit.Assert.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;

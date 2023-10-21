@@ -17,6 +17,8 @@
         <module>invitations</module>
         <module>common</module>
         <module>friends</module>
+        <module>invitations/invitations-events</module>
+        <module>invitations/invitations-listeners</module>
     </modules>
 
     <properties>

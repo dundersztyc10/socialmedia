@@ -3,30 +3,24 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>socialmedia</artifactId>
+        <artifactId>friends</artifactId>
         <groupId>pl.dundersztyc</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>friends</artifactId>
-    <packaging>pom</packaging>
-    <modules>
-        <module>friends-events</module>
-        <module>friends-listeners</module>
-    </modules>
+    <artifactId>friends-listeners</artifactId>
     <dependencies>
         <dependency>
             <groupId>pl.dundersztyc</groupId>
-            <artifactId>invitations</artifactId>
+            <artifactId>invitations-events</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>pl.dundersztyc</groupId>
+            <artifactId>friends</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-neo4j</artifactId>
-            <version>3.1.2</version>
         </dependency>
     </dependencies>
 

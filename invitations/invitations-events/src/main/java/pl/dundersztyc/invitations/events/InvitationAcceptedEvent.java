@@ -1,4 +1,4 @@
-package pl.dundersztyc.invitations.infrastructure.events;
+package pl.dundersztyc.invitations.events;
 
 import pl.dundersztyc.common.events.DomainEvent;
 

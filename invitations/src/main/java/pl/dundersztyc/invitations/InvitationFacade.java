@@ -4,10 +4,9 @@ import lombok.RequiredArgsConstructor;
 import pl.dundersztyc.accounts.AccountQueryRepository;
 import pl.dundersztyc.common.events.EventPublisher;
 import pl.dundersztyc.invitations.dto.*;
-import pl.dundersztyc.invitations.infrastructure.events.InvitationAcceptedEvent;
+import pl.dundersztyc.invitations.events.InvitationAcceptedEvent;
 
 import java.time.Clock;
-import java.time.Instant;
 import java.time.LocalDateTime;
 
 @RequiredArgsConstructor
