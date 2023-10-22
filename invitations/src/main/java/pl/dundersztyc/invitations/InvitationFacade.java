@@ -1,5 +1,6 @@
 package pl.dundersztyc.invitations;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import pl.dundersztyc.accounts.AccountQueryRepository;
 import pl.dundersztyc.common.events.EventPublisher;
@@ -34,7 +35,6 @@ public class InvitationFacade {
     }
 
     public InvitationDto acceptInvitation(String invitationId, String accountId) {
-        // TODO: call friend facade / publish event +
         Invitation invitation = invitationRepository.findById(invitationId)
                 .orElseThrow(() -> new InvitationDoesNotExistException("invalid invitationId"));
         if (!invitation.getReceiverId().equals(accountId)) {
@@ -50,7 +50,6 @@ public class InvitationFacade {
     }
 
     public InvitationDto declineInvitation(String invitationId, String accountId) {
-        // TODO: call friend facade / publish event +
         Invitation invitation = invitationRepository.findById(invitationId)
                 .orElseThrow(() -> new InvitationDoesNotExistException("invalid invitationId"));
         if (!invitation.getReceiverId().equals(accountId)) {
@@ -64,15 +63,22 @@ public class InvitationFacade {
         return new InvitationDto(saved.getId(), saved.getSenderId(), saved.getReceiverId(), saved.getStatus());
     }
 
+    public void deleteInvitation(InvitationRequest request) {
+        Invitation invitation = findInvitationBetweenAccounts(request.senderId(), request.receiverId());
+        invitationRepository.delete(invitation);
+    }
+
+    private Invitation findInvitationBetweenAccounts(String senderId, String receiverId) {
+        return invitationRepository.findInvitationBetweenAccounts(senderId, receiverId).orElseThrow(EntityNotFoundException::new);
+    }
+
     private boolean doAccountsExist(String idFrom, String idTo) {
         return accountQueryRepository.findAccountById(idFrom) != null &&
                 accountQueryRepository.findAccountById(idTo) != null;
     }
 
     private boolean doesInvitationExistBetweenAccounts(String idFrom, String idTo) {
-        return invitationRepository.existsBySenderIdAndReceiverId(idFrom, idTo) ||
-                invitationRepository.existsBySenderIdAndReceiverId(idTo, idFrom);
-
+        return invitationRepository.findInvitationBetweenAccounts(idFrom, idTo).isPresent();
     }
 
 }

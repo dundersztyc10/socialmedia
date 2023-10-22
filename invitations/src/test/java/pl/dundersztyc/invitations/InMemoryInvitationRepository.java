@@ -10,19 +10,20 @@ import java.util.stream.Collectors;
 
 class InMemoryInvitationRepository implements InvitationRepository {
 
-    ConcurrentHashMap<String, Invitation> invitations = new ConcurrentHashMap<>();
+    private ConcurrentHashMap<String, Invitation> invitations = new ConcurrentHashMap<>();
 
     @Override
     public Invitation save(Invitation invitation) {
         var id = UUID.randomUUID().toString();
-        invitations.put(id, invitation);
-        return new Invitation(
+        var toSave = new Invitation(
                 id,
                 invitation.getSenderId(),
                 invitation.getReceiverId(),
                 invitation.getDate(),
                 invitation.getStatus()
         );
+        invitations.put(id, toSave);
+        return toSave;
     }
 
     @Override
@@ -49,11 +50,17 @@ class InMemoryInvitationRepository implements InvitationRepository {
     }
 
     @Override
-    public boolean existsBySenderIdAndReceiverId(String senderId, String receiverId) {
+    public Optional<Invitation> findInvitationBetweenAccounts(String senderId, String receiverId) {
         return invitations.values().stream()
-                .anyMatch(invitation ->
-                        invitation.getSenderId().equals(senderId) &&
-                        invitation.getReceiverId().equals(receiverId)
-                );
+                .filter(invitation -> {
+                    return (invitation.getSenderId().equals(senderId) && invitation.getReceiverId().equals(receiverId))
+                            || (invitation.getSenderId().equals(receiverId) && invitation.getReceiverId().equals(senderId));
+                })
+                .findFirst();
+    }
+
+    @Override
+    public void delete(Invitation invitation) {
+        invitations.remove(invitation.getId());
     }
 }

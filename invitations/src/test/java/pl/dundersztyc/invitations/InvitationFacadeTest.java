@@ -140,6 +140,16 @@ class InvitationFacadeTest {
                 () -> invitationFacade.declineInvitation(invitationDto.id(), invitationDto.receiverId()));
     }
 
+    @Test
+    void shouldDeleteInvitation() {
+        var invitationDto = addInvitation("from", "to");
+
+        invitationFacade.deleteInvitation(new InvitationRequest("from", "to"));
+
+        // we can create same invitation when previous one is deleted
+        addInvitation("from", "to");
+    }
+
     private InvitationDto addInvitation(String idFrom, String idTo) {
         var request = new InvitationRequest(idFrom, idTo);
         return invitationFacade.addInvitation(request);

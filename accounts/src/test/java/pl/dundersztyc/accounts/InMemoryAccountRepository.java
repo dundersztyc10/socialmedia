@@ -16,8 +16,7 @@ public class InMemoryAccountRepository implements AccountRepository {
     @Override
     public Account save(Account account) {
         var id = UUID.randomUUID().toString();
-        accounts.put(id, account);
-        return new Account(
+        var toSave = new Account(
                 id,
                 new Username(account.getUsername()),
                 account.getFirstName(),
@@ -25,6 +24,8 @@ public class InMemoryAccountRepository implements AccountRepository {
                 new Password(account.getPassword()),
                 account.getRoles()
         );
+        accounts.put(id, toSave);
+        return toSave;
     }
 
     @Override

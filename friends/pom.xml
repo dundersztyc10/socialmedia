@@ -28,6 +28,40 @@
             <artifactId>spring-boot-starter-data-neo4j</artifactId>
             <version>3.1.2</version>
         </dependency>
+        <dependency>
+            <groupId>pl.dundersztyc</groupId>
+            <artifactId>friends-events</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.neo4j.test</groupId>
+            <artifactId>neo4j-harness</artifactId>
+            <version>3.5.25</version> <!-- Wybierz odpowiednią wersję Neo4j -->
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.neo4j</groupId>
+            <artifactId>neo4j-ogm</artifactId>
+            <version>1.1.2</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <properties>

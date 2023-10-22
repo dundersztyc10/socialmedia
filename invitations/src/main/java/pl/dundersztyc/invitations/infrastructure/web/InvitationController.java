@@ -75,6 +75,7 @@ class InvitationController {
     void handleInvitationDoesNotExistExceptionAndInvalidInvitationException() {
     }
 
+    //TODO: move to controller advice
     @ExceptionHandler({IllegalStateException.class})
     @ResponseStatus(HttpStatus.FORBIDDEN)
     void handleIllegalStateException() {
