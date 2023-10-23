@@ -11,4 +11,8 @@ public record FriendshipRequest(String idFrom, String idTo) {
         this.idFrom = idFrom;
         this.idTo = idTo;
     }
+
+    public boolean hasId(String id) {
+        return id.equals(idFrom) || id.equals(idTo);
+    }
 }

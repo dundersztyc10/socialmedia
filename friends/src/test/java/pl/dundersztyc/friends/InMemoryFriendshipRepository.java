@@ -1,6 +1,7 @@
 package pl.dundersztyc.friends;
 
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.SneakyThrows;
 import org.apache.http.MethodNotSupportedException;
 import org.neo4j.driver.GraphDatabase;
@@ -8,10 +9,7 @@ import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.factory.GraphDatabaseFactory;
 import org.springframework.web.server.MethodNotAllowedException;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -36,13 +34,6 @@ class InMemoryFriendshipRepository implements FriendshipRepository {
         );
     }
 
-    @SneakyThrows
-    @Override
-    // TODO: create in-memory neo4j
-    public List<Account> findFriendsOfAccountIdWithDepth(String accountId, int depth) {
-        throw new MethodNotSupportedException("");
-    }
-
     @Override
     public Optional<Account> findByAccountId(String accountId) {
         return friendships.values().stream()
@@ -58,5 +49,41 @@ class InMemoryFriendshipRepository implements FriendshipRepository {
     @Override
     public void deleteAll() {
         friendships.clear();
+    }
+
+
+    @Override
+    public List<Account> findFriendsOfAccountIdWithDepth(String accountId, int depth) {
+        // DFS implementation
+        var account = findByAccountId(accountId).orElseThrow(EntityNotFoundException::new);
+
+        Set<Account> uniqueFriends = new HashSet<>();
+        Queue<Account> queue = new LinkedList<>();
+        Set<Account> visited = new HashSet<>();
+
+        queue.add(account);
+        visited.add(account);
+
+        int currentDepth = 0;
+
+        while (!queue.isEmpty() && currentDepth < depth) {
+            int levelSize = queue.size();
+
+            for (int i = 0; i < levelSize; i++) {
+                Account currentAccount = queue.poll();
+                uniqueFriends.addAll(currentAccount.getFriends());
+
+                for (Account friend : currentAccount.getFriends()) {
+                    if (!visited.contains(friend)) {
+                        queue.add(friend);
+                        visited.add(friend);
+                    }
+                }
+            }
+
+            currentDepth++;
+        }
+        uniqueFriends.remove(account);
+        return new ArrayList<>(uniqueFriends);
     }
 }

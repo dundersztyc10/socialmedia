@@ -69,16 +69,4 @@ class InvitationController {
         return invitationQueryRepository.findReceivedInvitationsWithStatuses(accountId, requestedStatuses);
     }
 
-
-    @ExceptionHandler({InvitationDoesNotExistException.class, InvalidInvitationException.class})
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    void handleInvitationDoesNotExistExceptionAndInvalidInvitationException() {
-    }
-
-    //TODO: move to controller advice
-    @ExceptionHandler({IllegalStateException.class})
-    @ResponseStatus(HttpStatus.FORBIDDEN)
-    void handleIllegalStateException() {
-    }
-
 }

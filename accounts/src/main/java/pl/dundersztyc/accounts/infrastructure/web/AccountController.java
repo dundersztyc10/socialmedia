@@ -19,8 +19,4 @@ class AccountController {
         return accountQueryRepo.findAccountByUsername(username);
     }
 
-    @ExceptionHandler({AccountNotFoundException.class})
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    void handleAccountNotFoundException() {
-    }
 }

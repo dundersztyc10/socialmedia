@@ -20,6 +20,11 @@ class FriendsConfiguration {
     }
 
     @Bean
+    FriendshipQueryRepository friendshipQueryRepository(FriendshipRepository friendshipRepository) {
+        return new FriendshipQueryRepository(friendshipRepository);
+    }
+
+    @Bean
     org.neo4j.cypherdsl.core.renderer.Configuration configuration() {
         return org.neo4j.cypherdsl.core.renderer.Configuration.newConfig().withDialect(Dialect.NEO4J_5).build();
     }
