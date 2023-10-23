@@ -1,6 +1,5 @@
 package pl.dundersztyc.friends;
 
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NonNull;
 import org.springframework.data.neo4j.core.schema.GeneratedValue;
@@ -35,7 +34,7 @@ class Account {
         friends.add(friend);
     }
 
-    public void deleteFriend(@NotNull Account friend) {
+    public void deleteFriend(@NonNull Account friend) {
         friends.removeIf(elem -> Objects.equals(elem.id, friend.getId()));
     }
 

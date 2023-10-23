@@ -19,6 +19,7 @@
         <module>friends</module>
         <module>invitations/invitations-events</module>
         <module>invitations/invitations-listeners</module>
+        <module>posts</module>
     </modules>
 
     <properties>

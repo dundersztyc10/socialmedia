@@ -2,6 +2,7 @@ package pl.dundersztyc.friends;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 import pl.dundersztyc.common.events.EventPublisher;
 import pl.dundersztyc.friends.dto.FriendshipDto;
 import pl.dundersztyc.friends.dto.FriendshipExistException;
@@ -14,6 +15,7 @@ public class FriendshipFacade {
     private final FriendshipRepository friendshipRepository;
     private final EventPublisher eventPublisher;
 
+    @Transactional
     public FriendshipDto addFriendship(FriendshipRequest request) {
         Account sender = friendshipRepository.findByAccountId(request.idFrom())
                 .orElse(saveAccount(request.idFrom()));
@@ -30,6 +32,7 @@ public class FriendshipFacade {
         return new FriendshipDto(saved.getId(), request.idFrom(), request.idTo());
     }
 
+    @Transactional
     public void deleteFriendship(FriendshipRequest request) {
         var from = friendshipRepository.findByAccountId(request.idFrom()).orElseThrow(EntityNotFoundException::new);
         var to = friendshipRepository.findByAccountId(request.idTo()).orElseThrow(EntityNotFoundException::new);

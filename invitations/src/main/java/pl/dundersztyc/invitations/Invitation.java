@@ -18,7 +18,9 @@ class Invitation {
     private String id;
 
     private String senderId;
+
     private String receiverId;
+
     private LocalDateTime date;
 
     @Setter

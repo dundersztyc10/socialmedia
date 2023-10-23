@@ -1,6 +1,7 @@
 package pl.dundersztyc.accounts;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 import pl.dundersztyc.accounts.Account.Username;
 import pl.dundersztyc.accounts.dto.*;
 
@@ -10,6 +11,7 @@ public class AccountFacade {
     private final AccountRepository accountRepository;
     private final AccountMapper accountMapper;
 
+    @Transactional
     public AccountDto saveAccount(AccountRequest accountRequest) {
         if (usernameExist(new Username(accountRequest.username()))) {
             throw new UsernameExistException();

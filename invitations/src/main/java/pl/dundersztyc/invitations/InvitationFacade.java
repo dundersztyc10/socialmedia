@@ -2,6 +2,7 @@ package pl.dundersztyc.invitations;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 import pl.dundersztyc.accounts.AccountQueryRepository;
 import pl.dundersztyc.common.events.EventPublisher;
 import pl.dundersztyc.invitations.dto.*;
@@ -18,6 +19,7 @@ public class InvitationFacade {
     private final EventPublisher eventPublisher;
     private final Clock clock;
 
+    @Transactional
     public InvitationDto addInvitation(InvitationRequest request) {
         if (request.senderId().equals(request.receiverId())) {
             throw new InvalidInvitationException("the receiver cannot be the same as the sender");
@@ -34,6 +36,7 @@ public class InvitationFacade {
         return new InvitationDto(saved.getId(), saved.getSenderId(), saved.getReceiverId(), saved.getStatus());
     }
 
+    @Transactional
     public InvitationDto acceptInvitation(String invitationId, String accountId) {
         Invitation invitation = invitationRepository.findById(invitationId)
                 .orElseThrow(() -> new InvitationDoesNotExistException("invalid invitationId"));
@@ -49,6 +52,7 @@ public class InvitationFacade {
         return new InvitationDto(saved.getId(), saved.getSenderId(), saved.getReceiverId(), saved.getStatus());
     }
 
+    @Transactional
     public InvitationDto declineInvitation(String invitationId, String accountId) {
         Invitation invitation = invitationRepository.findById(invitationId)
                 .orElseThrow(() -> new InvitationDoesNotExistException("invalid invitationId"));
