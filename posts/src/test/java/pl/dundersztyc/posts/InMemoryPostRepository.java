@@ -15,13 +15,25 @@ class InMemoryPostRepository implements PostRepository {
 
     @Override
     public Post save(Post post) {
-        var id = UUID.randomUUID().toString();
+        var id = findById(post.getId()).isPresent() ?
+                post.getId() :
+                UUID.randomUUID().toString();
+        var commentsWithIds = post.getComments().stream()
+                .map(comment -> new Comment(
+                        UUID.randomUUID().toString(),
+                        comment.getAccountId(),
+                        comment.getContent(),
+                        comment.getDate()))
+                .collect(Collectors.toList());
+
         var toSave = new Post(
                 id,
                 post.getAccountId(),
                 post.getVisibility(),
                 post.getContent(),
-                post.getDate()
+                post.getDate(),
+                commentsWithIds,
+                post.getLikedBy()
         );
         posts.put(id, toSave);
         return toSave;
@@ -34,6 +46,7 @@ class InMemoryPostRepository implements PostRepository {
 
     @Override
     public Optional<Post> findById(String id) {
+        if (id == null) return Optional.empty();
         return Optional.ofNullable(
                 posts.get(id)
         );

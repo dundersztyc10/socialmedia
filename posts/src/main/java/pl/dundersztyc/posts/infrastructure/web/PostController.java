@@ -5,11 +5,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import pl.dundersztyc.common.CurrentAccountGetter;
-import pl.dundersztyc.posts.dto.DateRange;
+import pl.dundersztyc.posts.dto.*;
 import pl.dundersztyc.posts.PostFacade;
 import pl.dundersztyc.posts.PostQueryRepository;
-import pl.dundersztyc.posts.dto.PostDto;
-import pl.dundersztyc.posts.dto.PostRequest;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -54,4 +52,35 @@ class PostController {
                                                   @RequestParam("sinceDate") LocalDateTime sinceDate) {
         return postQueryRepo.findPostsByAccountSince(accountId, sinceDate);
     }
+
+    @PostMapping("/{id}/comments")
+    public void addComment(@PathVariable("id") String postId,
+                           @RequestBody CommentRequest request,
+                           CurrentAccountGetter currentAccountGetter) {
+        if (!request.accountId().equals(currentAccountGetter.getAccountId())) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
+        postFacade.addComment(request, postId);
+    }
+
+    @DeleteMapping("/{id}/comments/{commentId}")
+    public void deleteComment(@PathVariable("id") String postId,
+                              @PathVariable("commentId") String commentId,
+                              CurrentAccountGetter currentAccountGetter) {
+        postFacade.deleteComment(postId, commentId, currentAccountGetter.getAccountId());
+    }
+
+    @PostMapping("/{id}/likes")
+    public void addLike(@PathVariable("id") String postId,
+                        CurrentAccountGetter currentAccountGetter) {
+
+        postFacade.addLike(postId, currentAccountGetter.getAccountId());
+    }
+
+    @DeleteMapping("/{id}/likes")
+    public void deleteLike(@PathVariable("id") String postId,
+                           CurrentAccountGetter currentAccountGetter) {
+        postFacade.deleteLike(postId, currentAccountGetter.getAccountId());
+    }
+
 }
