@@ -52,7 +52,7 @@
         <dependency>
             <groupId>org.neo4j.test</groupId>
             <artifactId>neo4j-harness</artifactId>
-            <version>3.5.25</version> <!-- Wybierz odpowiednią wersję Neo4j -->
+            <version>3.5.25</version>
             <scope>test</scope>
         </dependency>
         <dependency>

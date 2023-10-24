@@ -13,7 +13,7 @@ public record DateRange(LocalDateTime startDate, LocalDateTime endDate) {
         this.endDate = endDate;
     }
 
-    boolean isInRange(LocalDateTime date) {
+    public boolean isInRange(LocalDateTime date) {
         return (date.isAfter(startDate) || date.isEqual(startDate)) &&
                 (date.isBefore(endDate) || date.isEqual(endDate));
     }
