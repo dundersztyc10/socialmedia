@@ -74,6 +74,11 @@
             <artifactId>posts-viewer</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>pl.dundersztyc</groupId>
+            <artifactId>recommended-accounts</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
 
         <dependency>
             <groupId>pl.dundersztyc</groupId>

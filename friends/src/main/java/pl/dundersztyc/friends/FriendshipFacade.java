@@ -18,9 +18,9 @@ public class FriendshipFacade {
     @Transactional
     public FriendshipDto addFriendship(FriendshipRequest request) {
         Account sender = friendshipRepository.findByAccountId(request.idFrom())
-                .orElse(saveAccount(request.idFrom()));
+                .orElseGet(() -> saveAccount(request.idFrom()));
         Account receiver = friendshipRepository.findByAccountId(request.idTo())
-                .orElse(saveAccount(request.idTo()));
+                .orElseGet(() -> saveAccount(request.idTo()));
         if (sender.getFriends().contains(receiver)) {
             throw new FriendshipExistException("friendship already exists");
         }

@@ -21,6 +21,7 @@
         <module>invitations/invitations-listeners</module>
         <module>posts</module>
         <module>posts-viewer</module>
+        <module>recommended-accounts</module>
     </modules>
 
     <properties>
