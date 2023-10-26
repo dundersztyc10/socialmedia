@@ -12,7 +12,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
 
 @Configuration
-//@Import(AccountConfiguration.class)
 public class AuthenticationConfiguration {
 
     @Bean

@@ -35,6 +35,8 @@ class Post {
 
     private Set<String> likedBy;
 
+    private Set<String> viewedBy;
+
     boolean addComment(@NonNull Comment comment) {
         return comments.add(comment);
     }
@@ -47,12 +49,17 @@ class Post {
         return likedBy.add(accountId);
     }
 
+    boolean addViewedBy(String accountId) {
+        return viewedBy.add(accountId);
+    }
+
     boolean deleteLike(String accountId) {
         return likedBy.removeIf(id -> id.equals(accountId));
     }
 
     static Post withoutId(String accountId, PostVisibility visibility, String content, LocalDateTime date) {
-        return new Post(null, accountId, visibility, content, date, new ArrayList<>(), new HashSet<>());
+        return new Post(null, accountId, visibility, content, date,
+                new ArrayList<>(), new HashSet<>(), new HashSet<>());
     }
 
 }

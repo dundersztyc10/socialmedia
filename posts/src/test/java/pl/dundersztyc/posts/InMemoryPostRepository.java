@@ -33,7 +33,8 @@ class InMemoryPostRepository implements PostRepository {
                 post.getContent(),
                 post.getDate(),
                 commentsWithIds,
-                post.getLikedBy()
+                post.getLikedBy(),
+                post.getViewedBy()
         );
         posts.put(id, toSave);
         return toSave;

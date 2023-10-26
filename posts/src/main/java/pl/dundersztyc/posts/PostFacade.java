@@ -3,7 +3,6 @@ package pl.dundersztyc.posts;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
-import pl.dundersztyc.posts.dto.CommentDto;
 import pl.dundersztyc.posts.dto.CommentRequest;
 import pl.dundersztyc.posts.dto.PostDto;
 import pl.dundersztyc.posts.dto.PostRequest;
@@ -69,6 +68,15 @@ public class PostFacade {
         var post = postRepository.findById(postId)
                 .orElseThrow(EntityNotFoundException::new);
         boolean result = post.deleteLike(accountId);
+        postRepository.save(post);
+        return result;
+    }
+
+    @Transactional
+    public boolean markAsViewed(String postId, String accountId) {
+        var post = postRepository.findById(postId)
+                .orElseThrow(EntityNotFoundException::new);
+        boolean result = post.addViewedBy(accountId);
         postRepository.save(post);
         return result;
     }

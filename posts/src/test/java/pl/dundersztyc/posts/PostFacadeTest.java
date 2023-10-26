@@ -61,7 +61,7 @@ class PostFacadeTest {
     void shouldAddComment() {
         var postDto = addPost("account1", PostVisibility.FRIENDS, "content");
 
-        var postWithComment = postFacade.addComment(defaultRequest(), postDto.id());
+        var postWithComment = postFacade.addComment(defaultCommentRequest(), postDto.id());
 
         assertThat(postWithComment.comments()).hasSize(1);
     }
@@ -69,13 +69,13 @@ class PostFacadeTest {
     @Test
     void shouldThrowWhenAddCommentAndPostIdDoesNotExist() {
         assertThrows(EntityNotFoundException.class,
-                () -> postFacade.addComment(defaultRequest(), "invalidId"));
+                () -> postFacade.addComment(defaultCommentRequest(), "invalidId"));
     }
 
     @Test
     void shouldDeleteComment() {
         var postDto = addPost("account1", PostVisibility.FRIENDS, "content");
-        var comment = postFacade.addComment(defaultRequest(), postDto.id())
+        var comment = postFacade.addComment(defaultCommentRequest(), postDto.id())
                 .comments().get(0);
 
         var isDeleted = postFacade.deleteComment(postDto.id(), comment.id(), comment.accountId());
@@ -155,12 +155,40 @@ class PostFacadeTest {
         assertThat(secondDeletion).isFalse();
     }
 
+    @Test
+    void shouldMarkAsViewed() {
+        var postDto = addPost("account1", PostVisibility.FRIENDS, "content");
+
+        var isAdded = postFacade.markAsViewed(postDto.id(), "accountId");
+
+        assertThat(isAdded).isTrue();
+    }
+
+    @Test
+    void shouldThrowWhenMarkAsViewedAndPostIdDoesNotExist() {
+        var postDto = addPost("account1", PostVisibility.FRIENDS, "content");
+
+        assertThrows(EntityNotFoundException.class,
+                () -> postFacade.markAsViewed("invalidPostId", "accountId"));
+    }
+
+    @Test
+    void cannotMarkAsViewedTwice() {
+        var postDto = addPost("account1", PostVisibility.FRIENDS, "content");
+
+        var firstAddition = postFacade.markAsViewed(postDto.id(), "accountId");
+        var secondAddition = postFacade.markAsViewed(postDto.id(), "accountId");
+
+        assertThat(firstAddition).isTrue();
+        assertThat(secondAddition).isFalse();
+    }
+
     private PostDto addPost(String accountId, PostVisibility visibility, String content) {
         var request = new PostRequest(accountId, visibility, content);
         return postFacade.addPost(request);
     }
 
-    private CommentRequest defaultRequest() {
+    private CommentRequest defaultCommentRequest() {
         return new CommentRequest("account2", "content2");
     }
 

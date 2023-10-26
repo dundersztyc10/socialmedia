@@ -20,6 +20,7 @@
         <module>invitations/invitations-events</module>
         <module>invitations/invitations-listeners</module>
         <module>posts</module>
+        <module>posts-viewer</module>
     </modules>
 
     <properties>

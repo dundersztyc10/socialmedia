@@ -31,7 +31,6 @@ class InvitationFacadeTest {
     private EventPublisher eventPublisher;
     private InvitationFacade invitationFacade;
 
-    // TODO: https://youtu.be/2vEoL3Irgiw?t=958
     @BeforeEach
     public void setUp() {
         accountQueryRepository = mock(AccountQueryRepository.class);
@@ -80,20 +79,7 @@ class InvitationFacadeTest {
 
         var accepted = invitationFacade.acceptInvitation(invitationDto.id(), "to");
 
-        // TODO:
         verify(eventPublisher).raise(any(InvitationAcceptedEvent.class));
-        //verify(eventPublisher).raise(argThat(
-        //        event -> {
-        //            assertThat(event).isInstanceOf(InvitationAcceptedEvent.class);
-        //            InvitationAcceptedEvent invitationAccepted = (InvitationAcceptedEvent) event;
-        //            assertAll(
-        //                    () -> assertThat(invitationAccepted.when()).isEqualTo(clock.instant()),
-        //                    () -> assertThat(invitationAccepted.senderId()).isEqualTo("from"),
-        //                    () -> assertThat(invitationAccepted.receiverId()).isEqualTo("to")
-        //            );
-        //            return true;
-        //        }
-        //));
         assertThat(accepted.status()).isEqualTo(InvitationStatus.ACCEPTED);
     }
 

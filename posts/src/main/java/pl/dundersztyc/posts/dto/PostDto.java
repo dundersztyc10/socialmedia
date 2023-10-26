@@ -1,5 +1,6 @@
 package pl.dundersztyc.posts.dto;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -9,5 +10,6 @@ public record PostDto(String id,
                       String content,
                       List<CommentDto> comments,
                       int likes,
-                      LocalDateTime date) {
+                      LocalDateTime date)
+implements Serializable {
 }

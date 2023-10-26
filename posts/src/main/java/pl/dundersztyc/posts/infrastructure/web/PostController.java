@@ -83,4 +83,10 @@ class PostController {
         postFacade.deleteLike(postId, currentAccountGetter.getAccountId());
     }
 
+    @PostMapping("/{id}/mark-as-viewed")
+    public void markAsViewed(@PathVariable("id") String postId,
+                             CurrentAccountGetter currentAccountGetter) {
+        postFacade.markAsViewed(postId, currentAccountGetter.getAccountId());
+    }
+
 }
