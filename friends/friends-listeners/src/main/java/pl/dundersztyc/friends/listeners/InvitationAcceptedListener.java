@@ -14,7 +14,7 @@ public class InvitationAcceptedListener {
     private final FriendshipFacade friendshipFacade;
 
     @EventListener
-    public void on(InvitationAcceptedEvent event) {
+    public void handleInvitationAccepted(InvitationAcceptedEvent event) {
         friendshipFacade.addFriendship(
                 new FriendshipRequest(event.senderId(), event.receiverId()));
     }

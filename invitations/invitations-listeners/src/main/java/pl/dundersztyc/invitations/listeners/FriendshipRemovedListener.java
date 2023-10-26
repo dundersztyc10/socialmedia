@@ -16,7 +16,7 @@ class FriendshipRemovedListener {
     private final InvitationFacade invitationFacade;
 
     @EventListener
-    public void on(FriendshipRemovedEvent event) {
+    public void handleFriendshipRemoved(FriendshipRemovedEvent event) {
         Logger LOGGER = LoggerFactory.getLogger(FriendshipRemovedListener.class);
         LOGGER.info("FRIENDSHIP REMOVED EVENT - LISTENER");
         invitationFacade.deleteInvitation(new InvitationRequest(event.idFrom(), event.idTo()));
