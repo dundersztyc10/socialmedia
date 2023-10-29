@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5433/friendsnearby
-    username: postusername
-    password: postpassword
+    url: ${DS_FRIENDS_NEARBY_URL}
+    username: ${DS_FRIENDS_NEARBY_USERNAME}
+    password: ${DS_FRIENDS_NEARBY_PASSWORD}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
@@ -14,11 +14,22 @@ spring:
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
 
+  neo4j:
+    uri: ${NEO4J_URI}
+    authentication:
+      username: ${NEO4J_USERNAME}
+      password: ${NEO4J_PASSWORD}
+
+  redis:
+    host: ${REDIS_HOST}
+    port: ${REDIS_PORT}
+
   data:
     mongodb:
-      host: localhost
-      port: 27017
-      database: test_db
-      username: username
-      password: password
-      authentication-database: admin
+      host: ${MONGODB_HOST}
+      port: ${MONGODB_PORT}
+      database: ${MONGODB_DB}
+      username: ${MONGODB_USERNAME}
+      password: ${MONGODB_PASSWORD}
+      authentication-database: ${MONGODB_AUTH_DB}
+
