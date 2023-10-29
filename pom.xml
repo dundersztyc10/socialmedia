@@ -23,6 +23,8 @@
         <module>posts-viewer</module>
         <module>recommended-accounts</module>
         <module>friends-nearby-geospatial</module>
+        <module>friends/friends-events</module>
+        <module>friends/friends-listeners</module>
     </modules>
 
     <properties>
