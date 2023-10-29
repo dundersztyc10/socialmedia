@@ -41,16 +41,6 @@ class InMemoryFriendshipRepository implements FriendshipRepository {
                 .findFirst();
     }
 
-    @Override
-    public List<Account> findAll() {
-        return new ArrayList<>(friendships.values());
-    }
-
-    @Override
-    public void deleteAll() {
-        friendships.clear();
-    }
-
 
     @Override
     public List<Account> findFriendsOfAccountIdWithDepth(String accountId, int depth) {

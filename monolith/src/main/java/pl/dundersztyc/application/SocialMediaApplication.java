@@ -17,8 +17,7 @@ import org.springframework.data.neo4j.repository.config.EnableNeo4jRepositories;
 public class SocialMediaApplication {
 
     public static void main(String[] args) {
-        var ctx = SpringApplication.run(SocialMediaApplication.class, args);
-        System.out.println(ctx);
+        SpringApplication.run(SocialMediaApplication.class, args);
     }
 
 }

@@ -43,10 +43,6 @@ class AccountCreatorRegisterTest extends AbstractIntegrationTest {
                 .andExpect(status().isBadRequest());
     }
 
-    @Test
-    public void cannotRegisterWhenCredentialsAreIncorrect() {
-        assertThat(true).isFalse();
-    }
 
     private ResultActions register(String user) throws Exception {
         return mockMvc

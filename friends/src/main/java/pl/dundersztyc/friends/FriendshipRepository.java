@@ -8,6 +8,4 @@ interface FriendshipRepository {
     List<Account> findFriendsOfAccountId(String accountId);
     List<Account> findFriendsOfAccountIdWithDepth(String accountId, int depth);
     Optional<Account> findByAccountId(String accountId);
-    List<Account> findAll(); // TODO: delete
-    void deleteAll(); // TODO: delete
 }
