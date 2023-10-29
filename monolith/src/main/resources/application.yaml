@@ -1,0 +1,24 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5433/friendsnearby
+    username: postusername
+    password: postpassword
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: test_db
+      username: username
+      password: password
+      authentication-database: admin

@@ -22,6 +22,7 @@
         <module>posts</module>
         <module>posts-viewer</module>
         <module>recommended-accounts</module>
+        <module>friends-nearby-geospatial</module>
     </modules>
 
     <properties>

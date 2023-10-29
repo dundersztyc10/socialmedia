@@ -1,0 +1,10 @@
+services:
+  database:
+    image: postgis/postgis
+    ports:
+      - 5433:5432
+    environment:
+      POSTGRES_USER: postusername
+      POSTGRES_PASSWORD: postpassword
+      POSTGRES_DB: friendsnearby
+
