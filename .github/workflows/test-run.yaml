@@ -42,3 +42,6 @@ jobs:
 
       - name: Build and run Unit/Integration Tests with Maven
         run: mvn test
+
+      - name: Stop and remove Docker Compose containers
+        run: docker compose down
