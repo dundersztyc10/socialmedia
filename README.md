@@ -85,6 +85,6 @@ SocialMedia is a social networking app where you can express yourself by writing
 - Redis
 - Docker
 - Testcontainers
-- JUnit5
+- JUnit 5
 - Mockito
 - GitHub Actions
