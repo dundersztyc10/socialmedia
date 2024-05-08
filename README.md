@@ -71,7 +71,7 @@ SocialMedia is a social networking app where you can express yourself by writing
 ![](docs/structure.png)
 
 ## Run
-1. Clone the repository: `git clone https://github.com/dundersztyc10/socialmedia.git`
+1. Clone the repository: `git clone https://github.com/marcin-bn/socialmedia.git`
 2. Navigate to the project directory: `cd socialmedia`
 3. Create and start containers: `docker compose up -d`
 
